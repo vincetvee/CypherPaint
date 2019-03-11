@@ -1,0 +1,120 @@
+﻿<Window x:Class="DiagramDesigner.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:s="clr-namespace:DiagramDesigner"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        WindowStartupLocation="CenterScreen"
+        Title="Diagram Designer Part 2"
+        FontFamily="SegoeUI"
+        Height="850" DataContext="{Binding}"
+        Width="1100">
+    <DockPanel Margin="0">
+        <ToolBar Height="60"
+                 DockPanel.Dock="Top">
+            <WrapPanel Orientation="Horizontal" Margin="10,0" >
+                <Label x:Name="StrokeLabelColor" Content="StrokeColor" Width="80" Margin="0,10,0,0" />
+                <xctk:ColorPicker
+                        x:Name="StrokeColorPicker" Height="24" Margin="9,14,0,9" Width="90"
+                        ToolTip="Choose a fill color"
+                        SelectedColor="Blue" SelectedColorChanged="StrokeColorPicker_SelectedColorChanged"/>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Horizontal" Margin="10,0">
+                <Label Content="Fill Color"  Width="60" Margin="0,10,0,0"  />
+                <xctk:ColorPicker Name="comboColors2" Height="24" Width="90" Margin="9,14,0,9"
+                                  SelectedColor="Black" SelectedColorChanged="ComboColors2_SelectedColorChanged" />
+
+
+            </WrapPanel>
+
+            <WrapPanel  Orientation="Horizontal" Width="193">
+                <Label  Content="SelectionCriteria" Margin="0,10,0,0"/>
+                <ComboBox  Height="24" 
+                           DisplayMemberPath="Content"
+                           ItemsSource="{Binding selectCriterias}" 
+                           SelectedValuePath="Value"
+                           Width="70" Margin="9,14,0,9" x:Name="SelectionCriteriaComboBox" SelectionChanged="SelectionCriteriaComboBox_SelectionChanged">
+                    <!--<ComboBoxItem Content="Select first Item"  />
+                    <ComboBoxItem Content="Select last Item" />
+                    <ComboBoxItem Content="Select middle Item" />
+                    <ComboBoxItem Content="Select all Item" />-->
+
+                </ComboBox>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button  Content="Load" Width="60" Margin="3,1" Click="Click_load"/>
+                <Button Content="Save" Width="60" Margin="3,1" Click="Click_save"/>
+                <Button Content="ClearCanvas" Width="60" Margin="3,1" Click="Button_Click_1"/>
+            </WrapPanel>
+        </ToolBar>
+
+        <Grid Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="195*" />
+                <ColumnDefinition Width="230"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition  Height="0.3*" />
+
+            </Grid.RowDefinitions>
+            <Border Margin="3,1,0,0"
+                    Grid.Column="1"
+                    BorderBrush="LightGray"
+                    BorderThickness="1" Grid.ColumnSpan="2">
+                <Grid>
+
+                    <s:DesignerCanvas x:Name="MyDesignerCanvas"
+                                          MinHeight="700" DataContext="{Binding}"
+                                          MinWidth="100" PreviewDrop="MyDesignerCanvas_PreviewDrop"
+                                          AllowDrop="True"
+                                          Background="#656B9F" Margin="-3.454,-3.454,227.943,0">
+                    </s:DesignerCanvas>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="0"
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    Background="#454B84">
+                <StackPanel>
+
+                    <Expander IsExpanded="False"
+                              Header="ToolBox"
+                              Margin="0,1,0,0"
+                              Content="{StaticResource FlowChartSymbols}" />
+
+
+                </StackPanel>
+            </Border>
+
+            <Border 
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    Background="#454B84"  Grid.Column="2" RenderTransformOrigin="0.5,0.5" Margin="1.479,0,0,0">
+                <StackPanel>
+
+                    <Expander IsExpanded="False"
+                              Header="Items Pane"  x:Name="MyCanvasItemsBox"
+                              Margin="0,1,0,0"   >
+                        <WrapPanel Orientation="Horizontal" x:Name="myItemsHolder" />
+                    </Expander>
+
+                </StackPanel>
+            </Border>
+
+            <!--<Border>
+                <StackPanel/>
+            </Border>-->
+
+            <GridSplitter Grid.Column="1"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Stretch"
+                          Background="Transparent"
+                          Width="3" />
+        </Grid>
+    </DockPanel>
+</Window>
